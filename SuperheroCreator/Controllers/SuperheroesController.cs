@@ -18,18 +18,15 @@ namespace SuperheroCreator.Controllers
         // GET: Superheroes
         public ActionResult Index()
         {
-            List<Superhero> superheroList = new List<Superhero>();
-            foreach (Superhero superhero in context.Superheroes)
-            {
-                superheroList.Add(superhero);
-            }        
+            List<Superhero> superheroList = context.Superheroes.ToList();
             return View(superheroList);
         }
 
         // GET: Superheroes/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            Superhero superhero = context.Superheroes.Where(i => i.Id == id).Single();
+            return View(superhero);
         }
 
         // GET: Superheroes/Create
