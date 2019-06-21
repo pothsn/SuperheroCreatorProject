@@ -18,7 +18,12 @@ namespace SuperheroCreator.Controllers
         // GET: Superheroes
         public ActionResult Index()
         {
-            return View();
+            List<Superhero> superheroList = new List<Superhero>();
+            foreach (Superhero superhero in context.Superheroes)
+            {
+                superheroList.Add(superhero);
+            }        
+            return View(superheroList);
         }
 
         // GET: Superheroes/Details/5
