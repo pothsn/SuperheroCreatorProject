@@ -55,24 +55,42 @@ namespace SuperheroCreator.Controllers
         // GET: Superheroes/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            //Superhero superhero = context.Superheroes.Where(i => i.Id == id).FirstOrDefault();
+            Superhero superhero = context.Superheroes.Find(id);
+            if (superhero == null)
+            {
+                return HttpNotFound();
+            }
+            return View(superhero);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Superhero superhero)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Entry(superhero).State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(superhero);
         }
 
         // POST: Superheroes/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
+        //[HttpPost]
+        //public ActionResult Edit(int id, FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add update logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
         // GET: Superheroes/Delete/5
         public ActionResult Delete(int id)
